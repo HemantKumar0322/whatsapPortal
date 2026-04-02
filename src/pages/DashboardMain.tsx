@@ -1,15 +1,13 @@
 import React from 'react';
-import {Row, Col, Statistic, Progress, List, Avatar, Tag, Space, Typography, } from 'antd';
+import {Row, Col, List, Avatar, Tag, Space, Typography, Button } from 'antd';
 import {
   UserOutlined,
-  ShoppingCartOutlined,
-  DollarOutlined,
-  RiseOutlined,
-  FallOutlined,
-  EyeOutlined,
-  ClockCircleOutlined,
+  MessageOutlined,
+  BellOutlined,
   CheckCircleOutlined,
-  ExclamationCircleOutlined,
+  LinkOutlined,
+  ChromeOutlined,
+  ArrowRightOutlined,
 } from '@ant-design/icons';
 
 import {  PageTitleWithDescription, SimpleCard, TitleCard } from '@/components/uiPart';
@@ -20,162 +18,168 @@ const DashboardMain: React.FC = () => {
 
   // Mock data for dashboard
   const stats = {
-    totalUsers: 11,
-    totalOrders: 11,
-    totalRevenue: 11,
-    growthRate: 12.5,
-    pendingOrders: 23,
-    completedOrders: 789,
-    cancelledOrders: 44
+    totalConversations: 14,
+    activeContacts: 14,
+    unreadMessages: 0,
+    totalMessages: 189,
   };
+
+  const statusIndicators = [
+    { label: 'ACCOUNT STATUS', value: 'CONNECTED', color: '#52c41a' },
+    { label: 'QUALITY RATING', value: 'GREEN', color: '#52c41a' },
+    { label: 'DAILY MESSAGING LIMIT', value: '2,000/day', color: '#1890ff' },
+  ];
 
   const statsConfig = [
     {
       title: "Active",
-      value: stats.totalUsers,
-      titleIcon: <UserOutlined />,
-      icon: <UserOutlined />,
-      color: "#3f8600",
-      growth: `Total Conversations`,
-      growthIcon: <RiseOutlined className="text-green-500 mr-1" />,
+      value: stats.totalConversations,
+      icon: <MessageOutlined />,
+      color: "#1890ff",
+      growth: "Total Conversations",
     },
     {
       title: "Saved",
-      value: stats.totalOrders,
-      titleIcon: <ShoppingCartOutlined />,
-      icon: <ShoppingCartOutlined />,
+      value: stats.activeContacts,
+      icon: <UserOutlined />,
       color: "#1890ff",
       growth: "Active Contacts",
-      growthIcon: <RiseOutlined className="text-green-500 mr-1" />,
     },
     {
       title: "Needs attention",
-      value: stats.totalRevenue,
-      titleIcon: <DollarOutlined />,
-      icon: <DollarOutlined />,
-      color: "#722ed1",
-      // suffix: "$",
+      value: stats.unreadMessages,
+      icon: <BellOutlined />,
+      color: "#ff7a45",
       growth: "Unread Messages",
-      growthIcon: <RiseOutlined className="text-green-500 mr-1" />,
     },
     {
       title: "Lifetime",
-      value: stats.growthRate,
-      titleIcon: <RiseOutlined />,
-      icon: <RiseOutlined />,
-      color: "#d3d3d3b6",
-      suffix: "%",
+      value: stats.totalMessages,
+      icon: <CheckCircleOutlined />,
+      color: "#95de64",
       growth: "Total Messages",
-      growthIcon: <FallOutlined className="text-red-500 mr-1" />,
     },
   ];
 
-  const recentActivities = [
+  const growthTools = [
     {
       id: 1,
-      user: 'John Doe',
-      action: 'placed a new order',
-      target: 'Event Logistics Package',
-      time: '2 minutes ago',
-      status: 'pending'
+      title: 'Customize WhatsApp Link',
+      description: 'Create shareable links & QR for your WA business number',
+      icon: <LinkOutlined className="text-2xl text-blue-500" />,
     },
     {
       id: 2,
-      user: 'Jane Smith',
-      action: 'completed payment for',
-      target: 'Shipping Services',
-      time: '15 minutes ago',
-      status: 'completed'
+      title: 'WhatsApp Website Button',
+      description: 'Drive WhatsApp sales with personalised CTAs',
+      icon: <ChromeOutlined className="text-2xl text-green-500" />,
+    },
+  ];
+
+  const recentConversations = [
+    {
+      id: 1,
+      name: 'Harsh',
+      initials: 'HA',
+      time: 'less than a minute ago',
+      online: true
+    },
+    {
+      id: 2,
+      name: 'samet Kahraman',
+      initials: 'SA',
+      time: '1 minute ago',
+      online: true
     },
     {
       id: 3,
-      user: 'Bob Johnson',
-      action: 'requested quote for',
-      target: 'Custom Event Setup',
-      time: '1 hour ago',
-      status: 'pending'
+      name: 'Aditya',
+      initials: 'AD',
+      time: '5 days ago',
+      online: false
     },
     {
       id: 4,
-      user: 'Alice Brown',
-      action: 'cancelled order',
-      target: 'Basic Logistics',
-      time: '2 hours ago',
-      status: 'cancelled'
+      name: 'Dinesh Tank',
+      initials: 'DI',
+      time: '5 days ago',
+      online: false
     },
     {
       id: 5,
-      user: 'Charlie Wilson',
-      action: 'updated profile information',
-      target: '',
-      time: '3 hours ago',
-      status: 'completed'
-    }
+      name: 'Anukul Dhuriya',
+      initials: 'AN',
+      time: '5 days ago',
+      online: false
+    },
   ];
 
-  const topServices = [
-    { name: 'Event Logistics', orders: 234, revenue: 45600 },
-    { name: 'Shipping Services', orders: 189, revenue: 38900 },
-    { name: 'Custom Setup', orders: 156, revenue: 31200 },
-    { name: 'Storage Solutions', orders: 98, revenue: 19600 },
-    { name: 'Consultation', orders: 67, revenue: 13400 }
+  const quickActions = [
+    {
+      id: 1,
+      title: 'Send broadcast message',
+      description: 'Reach all contacts at once',
+      icon: <MessageOutlined />,
+    },
+    {
+      id: 2,
+      title: 'Create auto-response',
+      description: 'Set up automated replies',
+      icon: <CheckCircleOutlined />,
+    },
+    {
+      id: 3,
+      title: 'Add new template',
+      description: 'Create message templates',
+      icon: <CheckCircleOutlined />,
+    },
+    {
+      id: 4,
+      title: 'Export conversations',
+      description: 'Download chat history',
+      icon: <CheckCircleOutlined />,
+    },
   ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return 'green';
-      case 'pending':
-        return 'orange';
-      case 'cancelled':
-        return 'red';
-      default:
-        return 'default';
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return <CheckCircleOutlined />;
-      case 'pending':
-        return <ClockCircleOutlined />;
-      case 'cancelled':
-        return <ExclamationCircleOutlined />;
-      default:
-        return <EyeOutlined />;
-    }
-  };
 
 
 
 
   return (
     <div className="w-full flex-1 flex flex-col overflow-hidden">
-      <div className="mb-6">
+      <div className="mb-6 bg-white p-4 rounded">
         <PageTitleWithDescription title="Dashboard" description="Welcome back! Here's what's happening today." />
       </div>
+
+      {/* Status Indicators */}
+      <Row gutter={[24, 16]} className="mb-6 bg-white p-4 rounded">
+        {statusIndicators.map((indicator, index) => (
+          <Col xs={24} sm={8} key={index}>
+            <div className="flex items-center gap-3">
+              <Text type="secondary" className="text-xs font-semibold">{indicator.label}</Text>
+              <Tag color={indicator.color} style={{ marginRight: 0 }}>
+                {indicator.value}
+              </Tag>
+            </div>
+          </Col>
+        ))}
+      </Row>
 
       {/* Main Statistics */}
       <Row gutter={[16, 16]} className="mb-6">
         {statsConfig.map((item, index) => (
           <Col xs={24} sm={12} lg={6} key={index}>
-            <SimpleCard >
-              <Statistic
-                title={<div className="flex items-center justify-between space-x-2">
-                  <span> {item.titleIcon}</span>
-                  <span className={`bg-[#ffffff] px-1 rounded-full`}>
-                    {item.title}
-                  </span>
-                </div>}
-                value={item.value}
-                prefix={item.icon}
-                valueStyle={{ color: item.color }}
-                suffix={item.suffix}
-              />
-              <div className="mt-2">
-                <Text type="secondary">
-                  {item.growthIcon}
+            <SimpleCard>
+              <div className="flex flex-col">
+                <div className="flex items-center justify-between mb-4">
+                  <Text type="secondary" className="text-xs font-semibold">{item.title}</Text>
+                  <span className="text-lg opacity-40">{item.icon}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <Text strong className="text-2xl" style={{ color: item.color }}>
+                    {item.value}
+                  </Text>
+                </div>
+                <Text type="secondary" className="text-xs mt-2">
                   {item.growth}
                 </Text>
               </div>
@@ -184,99 +188,81 @@ const DashboardMain: React.FC = () => {
         ))}
       </Row>
 
-      {/* Order Status Progress */}
+      {/* Growth Tools */}
+      <div className="mb-6">
+        <Text strong className="text-base">Growth Tools</Text>
+      </div>
       <Row gutter={[16, 16]} className="mb-6">
-        <Col xs={24} lg={12}>
-          <TitleCard title="Order Status Overview">
-            <div className="space-y-4">
-              <div>
-                <div className="flex justify-between mb-2">
-                  <Text>Completed Orders</Text>
-                  <Text strong>{stats.completedOrders}</Text>
+        {growthTools.map((tool) => (
+          <Col xs={24} sm={12} lg={12} key={tool.id}>
+            <SimpleCard className="cursor-pointer hover:shadow-lg transition-shadow">
+              <div className="flex items-start justify-between">
+                <div className="flex flex-col flex-1">
+                  <Text strong className="mb-1">{tool.title}</Text>
+                  <Text type="secondary" className="text-sm">{tool.description}</Text>
                 </div>
-                <Progress
-                  percent={Math.round((stats.completedOrders / stats.totalOrders) * 100)}
-                  strokeColor="#52c41a"
-                  showInfo={false}
-                />
+                <Button type="text" icon={<ArrowRightOutlined />} />
               </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <Text>Pending Orders</Text>
-                  <Text strong>{stats.pendingOrders}</Text>
-                </div>
-                <Progress
-                  percent={Math.round((stats.pendingOrders / stats.totalOrders) * 100)}
-                  strokeColor="#faad14"
-                  showInfo={false}
-                />
-              </div>
-              <div>
-                <div className="flex justify-between mb-2">
-                  <Text>Cancelled Orders</Text>
-                  <Text strong>{stats.cancelledOrders}</Text>
-                </div>
-                <Progress
-                  percent={Math.round((stats.cancelledOrders / stats.totalOrders) * 100)}
-                  strokeColor="#ff4d4f"
-                  showInfo={false}
-                />
-              </div>
-            </div>
-          </TitleCard>
-        </Col>
-        <Col xs={24} lg={12}>
-          <TitleCard title="Top Services">
+            </SimpleCard>
+          </Col>
+        ))}
+      </Row>
+
+      {/* Recent Conversations and Quick Actions */}
+      <Row gutter={[16, 16]} className="flex-1">
+        <Col xs={24} lg={14}>
+          <TitleCard title="Recent Conversations" className="h-full">
             <List
-              dataSource={topServices}
-              renderItem={(item, index) => (
-                <List.Item>
+              dataSource={recentConversations}
+              renderItem={(item) => (
+                <List.Item className="cursor-pointer hover:bg-gray-50 px-2 py-3 rounded">
                   <List.Item.Meta
-                    avatar={<Avatar style={{ backgroundColor: '#1890ff' }}>{index + 1}</Avatar>}
-                    title={item.name}
-                    description={`${item.orders} orders • $${item.revenue.toLocaleString()}`}
+                    avatar={
+                      <Avatar 
+                        style={{ backgroundColor: '#1890ff' }}
+                        icon={<UserOutlined />}
+                      >
+                        {item.name.slice(0, 2).toUpperCase()}
+                      </Avatar>
+                    }
+                    title={
+                      <Space>
+                        <Text strong>{item.name}</Text>
+                        {item.online && (
+                          <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+                        )}
+                      </Space>
+                    }
+                    description={<Text type="secondary" className="text-xs">{item.time}</Text>}
                   />
-                  <div className="text-right">
-                    <Text strong>${item.revenue.toLocaleString()}</Text>
-                  </div>
+                  <Text>Click to view message</Text>
                 </List.Item>
               )}
             />
           </TitleCard>
         </Col>
-      </Row>
 
-      {/* Recent Activities */}
-      <TitleCard title="Recent Activities" className="flex-1">
-        <List
-          dataSource={recentActivities}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar icon={<UserOutlined />} />}
-                title={
-                  <Space>
-                    <Text strong>{item.user}</Text>
-                    <Text>{item.action}</Text>
-                    {item.target && <Text strong>{item.target}</Text>}
-                  </Space>
-                }
-                description={
-                  <Space>
-                    <Text type="secondary">{item.time}</Text>
-                    <Tag
-                      color={getStatusColor(item.status)}
-                      icon={getStatusIcon(item.status)}
-                    >
-                      {item.status}
-                    </Tag>
-                  </Space>
-                }
-              />
-            </List.Item>
-          )}
-        />
-      </TitleCard>
+        <Col xs={24} lg={10}>
+          <TitleCard title="Quick Actions" className="h-full">
+            <Space direction="vertical" className="w-full" size="large">
+              {quickActions.map((action) => (
+                <div 
+                  key={action.id}
+                  className="p-3 rounded-lg bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors border border-gray-200"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="text-lg mt-1">{action.icon}</div>
+                    <div className="flex-1">
+                      <Text strong className="block text-sm">{action.title}</Text>
+                      <Text type="secondary" className="text-xs">{action.description}</Text>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Space>
+          </TitleCard>
+        </Col>
+      </Row>
     </div>
   );
 };

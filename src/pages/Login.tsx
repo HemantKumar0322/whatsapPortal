@@ -59,6 +59,7 @@ const Login: React.FC = () => {
         navigate('/');
 
       },
+      
       onError: (error: any) => {
         // logHelper(TAG, ' ===> onerror ', error);
         errorToast(error?.data?.message || 'Something went wrong');
@@ -82,7 +83,7 @@ const Login: React.FC = () => {
         <div className="h-full overflow-y-auto px-8">
           <div className="mb-8 text-[#363536] font-semibold mt-[4rem] ">
             <div className="text-lg mb-1 text-left">Welcome to</div>
-            <div className="text-lg mb-2">UPURCHASE</div>
+            <div className="text-lg mb-2">Whatsapp bussiness</div>
           </div>
 
           <div className="relative">
